@@ -12,22 +12,6 @@ The use case for the simplified Continuous Integration/Continuous Deployment (CI
 4. Store the containerized application to Oracle Container Registry 
 5. Deploy the application to Oracle Container Engine
 
-### Create personal token ###
-
-Before you start to setup the CI/CD workflow first you need to install and configure `kubectl` to access to your Oracle Container Engine instance (Kubernetes cluster). To configure `kubectl` and Oracle Container Pipelines (Wercker) you need an authentication token and *kubeconfig* which contains the connection specific information and settings.
-
-To create your personal token open [https://app.wercker.com](https://app.wercker.com) (sign in if necessary) and click on your profile image at the top right corner of the page, select **Your profile** and click on **Manage settings**.
-
-![alt text](images/wercker.application.16.png)
-
-On the left side select the **Personal tokens** menu item. Define a token name e.g. your username and click **Generate**.
-
-![alt text](images/wercker.application.17.png)
-
-Make sure to copy your token because you won't be able to get it again! Click **Done**.
-
-![alt text](images/wercker.application.18.png)
-
 ### Install Kubernetes command line interface and connect to Oracle Container Engine instance ###
 
 #### Linux ####
@@ -96,7 +80,7 @@ Click **Get Started** and **Download kubeconfig File**
 
 ![alt text](images/wercker.application.30.png)
 
-When the the download finished open the *kubeconfig* file using your favourite text editor. The file content is something similar:
+The file content is something similar:
 
 	apiVersion: v1
 	clusters:
@@ -117,12 +101,7 @@ When the the download finished open the *kubeconfig* file using your favourite t
 	  user:
 	    token: IAMABANANAQUiQkWoz6NqJLmsumxxr12xHStGWRTU.Hw3azCHsZ8yDvsYQHudnKRi0jgumaCiyK5OnQK5Pp1Q 
 
-The *kubeconfig* file contains the necessary details and parameters to connect to Oracle Container Engine (Kubernetes cluster). The *clusters* parameter defines the available clusters. The minimum set of the properties are the address of the master node, the certification and it's name to refer. For later usage copy your server address. In the example above it is:*https://c9f1b2bbcs1.prod.cluster.us-ashburn-1.oracledx.com:6443*. The *users* parameter contains a generated temporary token which has has short expiration time. To avoid this expiration replace replace the *user token* to your private token what was generated in the previous step.
-
-	  user:
-	    token: 0d82df20e90bad4f8cd40ecc5ac5456c9f44238460edadc2a8b32108ce6bdf19
-
-Save the updated *kubeconfig*. 
+The *kubeconfig* file contains the necessary details and parameters to connect to Oracle Container Engine (Kubernetes cluster). The *clusters* parameter defines the available clusters. The minimum set of the properties are the address of the master node, the certification and it's name to refer. For later usage copy your server address. In the example above it is:*https://c9f1b2bbcs1.prod.cluster.us-ashburn-1.oracledx.com:6443*.
 
 When execute a `kubectl` command first it tries to read the default configuration file: *config* file from default location. On Linux it is `~/.kube` and on Windows it is `c:\Users\<USERNAME>\.kube`. But you can store *config* file at different path and even with different name e.g.*kubeconfig*. Just set the configuration file location as KUBECONFIG environment variable in your command line terminal where you want to execute `kubectl` commands.
 
